@@ -1,62 +1,33 @@
-<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
-<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+<!doctype HTML>
+<html>
+<head>
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+  <script src="js/aframe.min.js"></script>
+  <script src="js/aframe-ar.js"></script>
+</head>
+<body style="margin: 0px; overflow: hidden;">
 
-<style>
-  .arjs-loader {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+<a-scene embedded vr-mode-ui="enabled: false;" arjs="debugUIEnabled: true; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+  
+  <a-assets>
+    <!-- carica il modello 3D fox -->
+    <a-asset-item id="fox-model" src="fox.glb"></a-asset-item>
+  </a-assets>
+  
+  <!-- marker kanji.patt -->
+  <a-marker type="pattern" url="kanji.patt">
+    <!-- modello 3D fox -->
+    <a-entity 
+      gltf-model="#fox-model" 
+      scale="0.5 0.5 0.5" 
+      position="0 0 0" 
+      rotation="0 0 0">
+    </a-entity>
+  </a-marker>
 
-  .arjs-loader div {
-    text-align: center;
-    font-size: 1.25em;
-    color: white;
-  }
-</style>
+  <a-entity camera></a-entity>
+  
+</a-scene>
 
-<body style="margin : 0px; overflow: hidden;">
-  <!-- minimal loader shown until image descriptors are loaded -->
-  <div class="arjs-loader">
-    <div>Loading, please wait...</div>
-  </div>
-  <a-scene
-    vr-mode-ui="enabled: false;"
-    renderer="logarithmicDepthBuffer: true;"
-    embedded
-    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: true;"
-  >
-    <!-- we use cors proxy to avoid cross-origin problems -->
-
-    <!--
-      ⚠️⚠️⚠️
-      https://arjs-cors-proxy.herokuapp.com/ is now offline, Heroku has dismissed all his free plans from November 2022.
-      You need to host your own proxy and use it instead. The proxy is based on CORS Anywhere (see https://github.com/Rob--W/cors-anywhere).
-      ⚠️⚠️⚠️
-    -->
-
-    <a-nft
-      type="nft"
-      url="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/trex-image/trex"
-      smooth="true"
-      smoothCount="10"
-      smoothTolerance=".01"
-      smoothThreshold="5"
-    >
-      <a-entity
-        gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"
-        scale="5 5 5"
-        position="50 150 0"
-      >
-      </a-entity>
-    </a-nft>
-    <a-entity camera></a-entity>
-  </a-scene>
 </body>
+</html>
